@@ -1,0 +1,119 @@
+﻿<Window x:Class="StudentManagementSystem.StudentListDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudentManagementSystem"
+      mc:Ignorable="d" FontSize="14" FontFamily="Segoe UI Light" 
+        SizeToContent="Height" Height="1200" Width="800" Background="#FFDCDBB0" Foreground="#FF7B2828">
+    <Window.Resources>
+        <XmlDataProvider x:Key="MockList" XPath="/MockObjects/*">
+            <x:XData>
+                <MockObjects xmlns="">
+                    <MockObject
+                        StudentId="8798529"
+                        StudentName="Sanika Pawar"
+                        CourseId="1772"
+                        CourseTitle="Software Quality Assurance Test Engineering"
+                     />
+                    <MockObject
+                        StudentId="8798529"
+                        StudentName="Niyanta Parmar"
+                        CourseId="1772"
+                        CourseTitle="Software Quality Assurance Test Engineering "
+                     />
+                    <MockObject
+                        StudentId="8798529"
+                        StudentName="Preethi"
+                        CourseId="1772"
+                        CourseTitle="Software Quality Assurance Test Engineering "
+                     />
+                    <MockObject
+                        StudentId="8798529"
+                        StudentName="Vanmathi"
+                        CourseId="1772"
+                        CourseTitle="Software Quality Assurance Test Engineering "
+                     />
+                    <MockObject
+                        StudentId="8798529"
+                        StudentName="Ritu"
+                        CourseId="1772"
+                        CourseTitle="Software Quality Assurance Test Engineering "
+                     />
+
+                </MockObjects>
+            </x:XData>
+        </XmlDataProvider>
+    </Window.Resources>
+   
+    <Grid Margin="10" DataContext="{Binding Source={StaticResource MockList}}">
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Padding" Value="20 10"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- <ColumnDefinition Width="691*"/> -->
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" 
+                   VerticalAlignment="Center"
+                   FontSize="24" 
+                   TextAlignment="Center"
+                   Text="Student Management System" 
+                   FontFamily="Arial Black"  />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,40,0,108" Grid.RowSpan="2">
+            <TextBox Width="300" Height="25" HorizontalAlignment="Left"/>
+            <Button Content="Search" Height="25" Width="100" Padding="1" Background="#FFB5DCC9" Click="SearchButton_Click" />
+        </StackPanel>
+        <DataGrid Name="StudentListGrid" Grid.Row="2" Margin="0 0 0 50" IsReadOnly="True" LostFocus="StudListGrid_LostFocus" GotFocus="StudListGrid_GotFocus" AutoGenerateColumns="False">
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="StudentListRow_DoubleClick"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Student ID" Width="100" Binding="{Binding Student_Id}"/>
+                <DataGridTextColumn Header="First Name" Width="100" Binding="{Binding First_Name}"/>
+                <DataGridTextColumn Header="Last Name" Width="100" Binding="{Binding Last_Name}"/>
+                <DataGridTextColumn Header="Course Id" Width="100" Binding="{Binding Course_Code}"/>
+                <DataGridTextColumn Header="Course Title" Width="500" Binding="{Binding Course_Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--<DataGrid Name="StudentListGrid" Grid.Row="2" Margin="0 0 0 50" AutoGenerateColumns="False"
+                 IsReadOnly="True" LostFocus="StudListGrid_LostFocus" GotFocus="StudListGrid_GotFocus"
+                  ItemsSource="{Binding Mode=Default, XPath=/MockObjects/MockObject}" RowBackground="AntiqueWhite"
+                    SelectedItem="{Binding Mode=TwoWay, XPath=/MockObjects/MockObject/Title}" Grid.ColumnSpan="2" Grid.RowSpan="2">
+
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="StudentListRow_DoubleClick"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="StudentId" Binding="{Binding XPath=@StudentId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="StudentName" Binding="{Binding XPath=@StudentName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CourseId" Binding="{Binding XPath=@CourseId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CourseTitle" Binding="{Binding XPath=@CourseTitle}"></DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>-->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Add Student" Height="30" Width="120" Padding="5" Background="#FFB5DCC9" Click="AddStudentBtn_Click" />
+            <Button Name="AddCourse" Content="Add Course" Height="30" Width="120" Padding="5" 
+               Background="#FFB5DCC9"  Click="AddCourseButton_Click" />
+            <!-- IsEnabled="{Binding ElementName=StudentListGrid, Path=SelectedItems.Count}" -->
+        </StackPanel>
+    </Grid>
+</Window>
